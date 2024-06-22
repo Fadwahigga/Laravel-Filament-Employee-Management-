@@ -14,8 +14,10 @@ use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DatePicker;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\EmployeeResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -62,10 +64,20 @@ class EmployeeResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('first_name')->label('First Name')->sortable()->searchable(),
+                TextColumn::make('last_name')->label('Last Name')->sortable()->searchable(),
+                TextColumn::make('address')->label('Address')->sortable()->searchable(),
+                TextColumn::make('zip_code')->label('Zip Code')->sortable()->searchable(),
+                TextColumn::make('country.name')->label('Country')->sortable()->searchable(),
+                TextColumn::make('state.name')->label('State')->sortable()->searchable(),
+                TextColumn::make('city.name')->label('City')->sortable()->searchable(),
+                TextColumn::make('department.name')->label('Department')->sortable()->searchable(),
+                TextColumn::make('birth_date')->label('Birth Date')->sortable()->searchable(),
+                TextColumn::make('date_hired')->label('Date Hired')->sortable()->searchable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('Department')
+                    ->relationship('department', 'name')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
