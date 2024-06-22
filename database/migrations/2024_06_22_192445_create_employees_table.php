@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('address');
-            $table->chat('zip_code');
+            $table->char('zip_code');
             $table->date('birth_date');
             $table->date('date_hired');
             $table->timestamps();
