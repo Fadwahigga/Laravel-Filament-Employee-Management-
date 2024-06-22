@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CountryResource\Pages;
@@ -35,7 +36,11 @@ class CountryResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('id')->sortable(),
+                TextColumn::make('name')->sortable()->searchable(),
+                TextColumn::make('country_code')->sortable()->searchable(),
+                TextColumn::make('created_at')
+                    ->dateTime()
             ])
             ->filters([
                 //
