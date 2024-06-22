@@ -2,16 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
-use App\Models\User;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\User;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\UserResource\RelationManagers;
+use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
@@ -23,7 +26,12 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Section::make()->schema([
+                    TextInput::make('name')->required()->maxLength(255),
+                    TextInput::make('email')->label('Email Address')->required()->maxLength(255),
+                    TextInput::make('password')->required()->maxLength(8)->same('passwordConfirmation')->dehydrateStateUsing(fn($state) => Hash::make($state)),
+                    TextInput::make('passwordConfirmation')->label('Password Confirmation')->required()->maxLength(8)->dehydrateStateUsing(fn($state)=>Hash::make($state)),
+                ]),
             ]);
     }
 
