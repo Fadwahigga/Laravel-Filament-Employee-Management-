@@ -40,20 +40,20 @@ class EmployeeResource extends Resource
                     TextInput::make('zip_code')->required(),
                     Select::make('country_id')
                         ->label('Country')
-                        ->options(Country::all()->pluck('name', 'id'))
-                        ->searchable()->required(),
+                        ->options(Country::all()->pluck('name', 'id')->toArray())
+                        ->required()->reactive(),
                     Select::make('state_id')
                         ->label('State')
                         ->options(State::all()->pluck('name', 'id'))
-                        ->searchable()->required(),
+                        ->required(),
                     Select::make('city_id')
                         ->label('City')
                         ->options(City::all()->pluck('name', 'id'))
-                        ->searchable()->required(),
+                        ->required(),
                     Select::make('department_id')
                         ->label('Department')
                         ->options(Department::all()->pluck('name', 'id'))
-                        ->searchable()->required(),
+                        ->required(),
                     DatePicker::make('birth_date')->required(),
                     DatePicker::make('date_hired')->required(),
                 ]),
@@ -64,16 +64,16 @@ class EmployeeResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('first_name')->label('First Name')->sortable()->searchable(),
-                TextColumn::make('last_name')->label('Last Name')->sortable()->searchable(),
-                TextColumn::make('address')->label('Address')->sortable()->searchable(),
-                TextColumn::make('zip_code')->label('Zip Code')->sortable()->searchable(),
-                TextColumn::make('country.name')->label('Country')->sortable()->searchable(),
-                TextColumn::make('state.name')->label('State')->sortable()->searchable(),
-                TextColumn::make('city.name')->label('City')->sortable()->searchable(),
-                TextColumn::make('department.name')->label('Department')->sortable()->searchable(),
-                TextColumn::make('birth_date')->label('Birth Date')->sortable()->searchable(),
-                TextColumn::make('date_hired')->label('Date Hired')->sortable()->searchable(),
+                TextColumn::make('first_name')->label('First Name'),
+                TextColumn::make('last_name')->label('Last Name'),
+                TextColumn::make('address')->label('Address'),
+                TextColumn::make('zip_code')->label('Zip Code'),
+                TextColumn::make('country.name')->label('Country'),
+                TextColumn::make('state.name')->label('State'),
+                TextColumn::make('city.name')->label('City'),
+                TextColumn::make('department.name')->label('Department'),
+                TextColumn::make('birth_date')->label('Birth Date'),
+                TextColumn::make('date_hired')->label('Date Hired'),
             ])
             ->filters([
                 SelectFilter::make('Department')
